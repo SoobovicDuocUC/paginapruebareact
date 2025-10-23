@@ -1,0 +1,613 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* HEADER - Responsivo */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 0.5rem 2rem;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+header .logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  white-space: nowrap;
+}
+
+header nav ul li a,
+header nav ul li button {
+  text-decoration: none;
+  color: black;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+header nav ul li a:hover {
+  color: #2e8b57;
+}
+
+/* MAIN CONTENT */
+main {
+  padding-top: 80px;
+  min-height: calc(100vh - 200px);
+}
+
+/* HERO SECTION - Responsivo */
+.hero-section {
+  height: clamp(400px, 80vh, 600px);
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url("https://wallpapers.com/images/hd/fruits-and-vegetables-pictures-7p6xr10qmploc97e.jpg") no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem clamp(1rem, 5vw, 3rem);
+  position: relative;
+  color: white;
+}
+
+.hero-section h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero-section p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 1.5rem;
+}
+
+.hero-section .btn,
+.btn {
+  display: inline-block;
+  padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1rem, 3vw, 1.5rem);
+  background: #2e8b57;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.hero-section .btn:hover,
+.btn:hover {
+  background: #246a44;
+}
+
+/* CATALOG - Responsivo */
+.catalog-container {
+  padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+.catalog-container h2 {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  color: #2e8b57;
+}
+
+.catalog-top-section {
+  width: 100%;
+  height: clamp(200px, 40vh, 400px);
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url("https://wallpapers.com/images/hd/fruits-and-vegetables-pictures-7p6xr10qmploc97e.jpg") 
+              no-repeat center center/cover;
+  margin-bottom: -2rem;
+  animation: plon 1s;
+}
+
+.catalog-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  position: relative;
+  z-index: 5;
+  padding: 0 clamp(0.5rem, 2vw, 1rem);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.catalog-card {
+  box-shadow: 0px 0px 7px #000000;
+  border-radius: 20px;
+  padding: clamp(1rem, 3vw, 2rem);
+  background-color: #2e8b57;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  animation: subir 1s forwards;
+  opacity: 0;
+  margin-top: -2rem;
+  transition: all 0.3s;
+  text-align: center;
+  min-height: 300px;
+}
+
+.catalog-card:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.catalog-card:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.catalog-card:nth-child(4) {
+  animation-delay: 400ms;
+}
+
+.catalog-card:hover {
+  background-color: #005500;
+  transform: translateY(-1rem);
+}
+
+.catalog-card img {
+  width: clamp(60px, 15vw, 100px);
+  height: clamp(60px, 15vw, 100px);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.catalog-card h3 {
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #F7F7F7;
+}
+
+.catalog-card p {
+  font-weight: 500;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  text-align: justify;
+  color: #F7F7F7;
+  flex-grow: 1;
+}
+
+.catalog-card a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #0e3508;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-top: auto;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+}
+
+.catalog-card a:hover {
+  background: #071e04;
+}
+
+/* PRODUCTOS - Responsivo */
+.productos-container {
+  padding: clamp(1rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.productos-container h2 {
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: bold;
+  color: #2e8b57;
+  text-transform: capitalize;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: stretch;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: white;
+  border-radius: 10px;
+  padding: clamp(0.8rem, 2vw, 1rem);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: subir 1s;
+  min-height: 380px;
+  box-sizing: border-box;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 180px;
+  height: clamp(140px, 25vw, 180px);
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.product-card h4 {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.product-card .precio {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: bold;
+  color: #2e8b57;
+  margin-bottom: 0.3rem;
+}
+
+.product-card .precio-kilo,
+.product-card .descripcion {
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.product-card button {
+  background: #2e8b57;
+  color: white;
+  border: none;
+  padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1rem, 2vw, 1.2rem);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: auto;
+  width: 100%;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 600;
+}
+
+.product-card button:hover {
+  background: #246a44;
+}
+
+.btn-atras {
+  background: #2e8b57;
+  color: white;
+  border: none;
+  padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1.2rem, 3vw, 1.8rem);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  animation: subir 1s;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+
+.btn-atras:hover {
+  background: #555;
+}
+
+/* CARRITO - Responsivo */
+.carrito-container {
+  padding: clamp(1rem, 4vw, 2.5rem);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.carrito-container h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  color: #2e8b57;
+}
+
+.carrito-item {
+  background: white;
+  padding: clamp(0.8rem, 2vw, 1rem);
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.carrito-item button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.carrito-total {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-weight: bold;
+  color: #2e8b57;
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+/* NOSOTROS - Responsivo */
+.nosotros-container {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 4vw, 2.5rem);
+  align-items: center;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url("https://wallpapers.com/images/hd/fruits-and-vegetables-pictures-7p6xr10qmploc97e.jpg") 
+              no-repeat center center/cover;
+}
+
+.nosotros-text h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  color: #F7F7F7;
+}
+
+.nosotros-text p {
+  line-height: 1.6;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #F7F7F7;
+}
+
+.nosotros-map iframe {
+  width: 100%;
+  height: clamp(300px, 50vw, 450px);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* FOOTER - Responsivo */
+footer {
+  background-color: #2e8b57;
+  color: white;
+  padding: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+  margin-top: 3rem;
+}
+
+footer p {
+  margin-bottom: 1rem;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+}
+
+footer .social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+footer .social a img {
+  width: clamp(25px, 4vw, 35px);
+  height: clamp(25px, 4vw, 35px);
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s;
+}
+
+footer .social a img:hover {
+  transform: scale(1.2);
+}
+
+/* LOGIN PAGE - Responsivo */
+.login-page {
+  min-height: calc(100vh - 80px);
+}
+
+.login-hero {
+  min-height: calc(100vh - 80px);
+  background: url("https://wallpapers.com/images/hd/fruits-and-vegetables-pictures-7p6xr10qmploc97e.jpg") no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.login-overlay {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.form-container {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  max-width: 450px;
+  width: 95%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  animation: subir 0.6s ease-out;
+}
+
+.form-content h2 {
+  color: #2E8B57;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  margin-bottom: clamp(1rem, 3vw, 1.8rem);
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-content form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+}
+
+.form-content label {
+  color: #666666;
+  font-weight: bold;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  margin-bottom: -0.5rem;
+}
+
+.form-content input {
+  width: 100%;
+  padding: clamp(0.7rem, 1.5vw, 0.9rem);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  background: white;
+  color: #333;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-content input:focus {
+  outline: none;
+  border-color: #2E8B57;
+}
+
+.submit-btn {
+  padding: clamp(0.8rem, 2vw, 1rem);
+  background: #2E8B57;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background: #246a44;
+}
+
+.switch-form {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+}
+
+.switch-form a {
+  color: #2E8B57;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-form a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* ANIMATIONS */
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes plon {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* MEDIA QUERIES ADICIONALES */
+@media (min-width: 768px) {
+  .nosotros-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .carrito-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .carrito-item button {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  header {
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+  }
+  
+  header .logo {
+    height: 50px;
+  }
+  
+  header nav ul {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .hero-section {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
