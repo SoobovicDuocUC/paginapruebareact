@@ -7,6 +7,8 @@ import Products from "./components/pages/Products.jsx";
 import CartPage from "./components/pages/CartPage.jsx";
 import LoginPage from "./components/pages/LoginPage.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
+import ProductoList from "./components/pages/ProductoList.jsx";
+import ProductoForm from "./components/pages/ProductoForm.jsx";
 
 
 export default function App() {
@@ -21,6 +23,9 @@ export default function App() {
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/admin" element={<ProductoList />} />
+          <Route path="/admin/add" element={<ProductoForm />} />
+          <Route path="/admin/edit/:id" element={<ProductoForm />} />
         </Routes>
       </main>
       <Footer />
