@@ -9,12 +9,13 @@ export default function Login() {
   const [clave, setClave] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (login(email, clave)) {
+    const exito = await login(email, clave);
+    if (exito) {
       navigate('/');
     } else {
-      alert('Credenciales incorrectas');
+      alert('Credenciales incorrectas o error de conexión');
     }
   };
 

@@ -10,7 +10,6 @@ import Nosotros from "./components/pages/Nosotros.jsx";
 import ProductoList from "./components/pages/ProductoList.jsx";
 import ProductoForm from "./components/pages/ProductoForm.jsx";
 
-
 export default function App() {
   return (
     <>

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import logo from '../../assets/imagenes/image-removebg-preview.png';
 
 export default function Header() {
-  const { logged, logout, user } = useAuth();
+  const { logged, logout, user, role } = useAuth(); // Obtenemos el role
 
   return (
     <header>
@@ -16,24 +16,20 @@ export default function Header() {
           <li><Link to="/">Inicio</Link></li>
           <li><Link to="/catalogo">Catálogo</Link></li>
           <li><Link to="/productos/frutas">Productos</Link></li>
-          <li><Link to="/carrito"><Icon name="cart" /> Carrito</Link></li>
           
+          {/* BOTÓN SOLO PARA ADMIN */}
+          {logged && role === 'ADMIN' && (
+             <li>
+               <Link to="/admin" style={{ color: 'red', fontWeight: 'bold', textTransform:'uppercase' }}>Admin</Link>
+             </li>
+          )}
+
+          <li><Link to="/carrito"><Icon name="cart" /> Carrito</Link></li>
           {!logged ? (
             <li><Link to="/login">Login</Link></li>
           ) : (
             <>
-              {/* Muestra el email del usuario logueado */}
-              <li style={{ color: '#2e8b57', fontWeight: 'bold' }}>{user?.email}</li>
-              
-              {/* Solo muestra el botón Admin si el rol es ADMIN */}
-              {user?.role === 'ADMIN' && (
-                <li>
-                  <Link to="/admin" style={{ color: 'red', fontWeight: 'bold' }}>
-                    Admin
-                  </Link>
-                </li>
-              )}
-
+              <li style={{ color: '#2e8b57', fontWeight: 'bold' }}>{user}</li>
               <li>
                 <button 
                   onClick={logout}

@@ -1,57 +1,77 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import usuarioService from '../components/services/UsuarioService.js';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [logged, setLogged] = useState(false);
+  const [token, setToken] = useState(null);
+  const [role, setRole] = useState(null); // Guardamos el rol
 
   useEffect(() => {
-    // Recuperar sesión al recargar la página
-    const storedUser = localStorage.getItem('usuario_data');
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
+    // Al recargar, recuperamos la sesión
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('usuario');
+    const storedRole = localStorage.getItem('role');
+    
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setUser(storedUser);
+      setRole(storedRole);
       setLogged(true);
     }
   }, []);
 
-  const register = async (email, password, role) => {
+  async function register(email, password, roleInput) {
     try {
-      // Enviamos el usuario y su rol al backend
-      await usuarioService.register({ email, password, role });
-      return true;
+      const response = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, role: roleInput || 'USER' })
+      });
+      return response.ok;
     } catch (error) {
-      console.error("Error en registro:", error);
+      console.error(error);
       return false;
     }
-  };
+  }
 
-  const login = async (email, password) => {
+  async function login(email, password) {
     try {
-      const response = await usuarioService.login(email, password);
-      if (response.data) {
-        setUser(response.data); // Guardamos los datos del usuario (incluido el rol)
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('usuario', data.email);
+        localStorage.setItem('role', data.role);
+        setToken(data.token);
+        setUser(data.email);
+        setRole(data.role);
         setLogged(true);
-        localStorage.setItem('usuario_data', JSON.stringify(response.data));
         return true;
       }
       return false;
     } catch (error) {
-      console.error("Error en login:", error);
+      console.error(error);
       return false;
     }
-  };
+  }
 
-  const logout = () => {
-    setLogged(false);
+  function logout() {
+    localStorage.clear();
+    setToken(null);
     setUser(null);
-    localStorage.removeItem('usuario_data');
-  };
+    setRole(null);
+    setLogged(false);
+  }
 
   return (
-    <AuthContext.Provider value={{ user, logged, register, login, logout }}>
+    <AuthContext.Provider value={{ user, logged, token, role, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,16 +6,16 @@ export default function LoginPage() {
   const { login, register } = useAuth();
   const navigate = useNavigate();
   
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true); // Iniciar mostrando Login por defecto
   
-  // Formulario Registro
+  // Register form state
   const [correo, setCorreo] = useState('');
   const [clave1, setClave1] = useState('');
   const [clave2, setClave2] = useState('');
-  const [rol, setRol] = useState('USER'); // Por defecto es usuario normal
+  const [rol, setRol] = useState('USER'); // Nuevo estado para el Rol
   const [errorRegistro, setErrorRegistro] = useState('');
   
-  // Formulario Login
+  // Login form state
   const [loginCorreo, setLoginCorreo] = useState('');
   const [loginClave, setLoginClave] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
@@ -25,7 +25,7 @@ export default function LoginPage() {
     return emailRegex.test(email);
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e) => { // Async para esperar al backend
     e.preventDefault();
     setErrorRegistro('');
 
@@ -33,8 +33,8 @@ export default function LoginPage() {
       setErrorRegistro('Ingresa un correo válido');
       return;
     }
-    if (clave1.length < 6) {
-      setErrorRegistro('La contraseña debe tener al menos 6 caracteres');
+    if (clave1.length < 4) { // Ajustado a longitud razonable para pruebas
+      setErrorRegistro('La contraseña es muy corta');
       return;
     }
     if (clave1 !== clave2) {
@@ -42,31 +42,27 @@ export default function LoginPage() {
       return;
     }
 
-    // Registramos enviando también el rol seleccionado
-    const success = await register(correo, clave1, rol);
-    if (success) {
+    // Pasamos el rol seleccionado a la función register
+    const exito = await register(correo, clave1, rol);
+    
+    if (exito) {
       alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+      // Limpiar formulario y cambiar a login
+      setCorreo(''); setClave1(''); setClave2(''); setRol('USER');
       setShowLogin(true);
-      setCorreo(''); setClave1(''); setClave2('');
-    } else {
-      setErrorRegistro('Error al registrar. El correo podría estar en uso.');
     }
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e) => { // Async para esperar al backend
     e.preventDefault();
     setErrorLogin('');
 
-    if (!loginCorreo || !loginClave) {
-      setErrorLogin('Completa todos los campos');
-      return;
-    }
-
-    const success = await login(loginCorreo, loginClave);
-    if (success) {
+    const exito = await login(loginCorreo, loginClave);
+    
+    if (exito) {
       navigate('/');
     } else {
-      setErrorLogin('Credenciales incorrectas');
+      setErrorLogin('Correo o contraseña incorrectos');
     }
   };
 
@@ -76,28 +72,56 @@ export default function LoginPage() {
         <div className="login-overlay"></div>
         
         {!showLogin ? (
+          /* FORMULARIO DE REGISTRO */
           <div className="form-container">
             <div className="form-content">
               <h2>Crear una cuenta</h2>
               <form onSubmit={handleRegister}>
                 <label htmlFor="correo">Correo electrónico:</label>
-                <input type="email" id="correo" placeholder="usuario@correo.com" value={correo} onChange={(e) => setCorreo(e.target.value)} required />
+                <input
+                  type="email"
+                  id="correo"
+                  placeholder="usuario@correo.com"
+                  value={correo}
+                  onChange={(e) => setCorreo(e.target.value)}
+                  required
+                />
 
                 <label htmlFor="clave1">Contraseña:</label>
-                <input type="password" id="clave1" placeholder="Contraseña" value={clave1} onChange={(e) => setClave1(e.target.value)} required />
+                <input
+                  type="password"
+                  id="clave1"
+                  placeholder="Contraseña"
+                  value={clave1}
+                  onChange={(e) => setClave1(e.target.value)}
+                  required
+                />
 
                 <label htmlFor="clave2">Repetir contraseña:</label>
-                <input type="password" id="clave2" placeholder="Repetir contraseña" value={clave2} onChange={(e) => setClave2(e.target.value)} required />
+                <input
+                  type="password"
+                  id="clave2"
+                  placeholder="Repetir contraseña"
+                  value={clave2}
+                  onChange={(e) => setClave2(e.target.value)}
+                  required
+                />
 
-                {/* Selector de Rol */}
+                {/* SELECTOR DE ROL AÑADIDO */}
                 <label htmlFor="rol">Tipo de Usuario:</label>
                 <select 
                   id="rol" 
                   value={rol} 
                   onChange={(e) => setRol(e.target.value)}
-                  style={{ padding: '0.7rem', borderRadius: '5px', border: '1px solid #ddd', background: 'white', marginBottom: '0.5rem' }}
+                  style={{
+                    padding: '0.7rem',
+                    border: '1px solid #ddd',
+                    borderRadius: '5px',
+                    backgroundColor: 'white',
+                    marginBottom: '1rem'
+                  }}
                 >
-                  <option value="USER">Cliente Normal</option>
+                  <option value="USER">Cliente</option>
                   <option value="ADMIN">Administrador</option>
                 </select>
 
@@ -110,15 +134,30 @@ export default function LoginPage() {
             </div>
           </div>
         ) : (
+          /* FORMULARIO DE LOGIN */
           <div className="form-container">
             <div className="form-content">
               <h2>Iniciar sesión</h2>
               <form onSubmit={handleLogin}>
                 <label htmlFor="loginCorreo">Correo electrónico:</label>
-                <input type="email" id="loginCorreo" placeholder="usuario@correo.com" value={loginCorreo} onChange={(e) => setLoginCorreo(e.target.value)} required />
+                <input
+                  type="email"
+                  id="loginCorreo"
+                  placeholder="usuario@correo.com"
+                  value={loginCorreo}
+                  onChange={(e) => setLoginCorreo(e.target.value)}
+                  required
+                />
 
                 <label htmlFor="loginClave">Contraseña:</label>
-                <input type="password" id="loginClave" placeholder="Contraseña" value={loginClave} onChange={(e) => setLoginClave(e.target.value)} required />
+                <input
+                  type="password"
+                  id="loginClave"
+                  placeholder="Contraseña"
+                  value={loginClave}
+                  onChange={(e) => setLoginClave(e.target.value)}
+                  required
+                />
 
                 <button type="submit" className="submit-btn">Entrar</button>
               </form>

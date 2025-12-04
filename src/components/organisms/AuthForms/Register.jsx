@@ -7,10 +7,14 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [clave, setClave] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    register(email, clave);
-    alert('Usuario registrado con éxito');
+    const exito = await register(email, clave);
+    if (exito) {
+      alert('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
+      setEmail('');
+      setClave('');
+    }
   };
 
   return (
