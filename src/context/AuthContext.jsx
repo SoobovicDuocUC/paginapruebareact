@@ -6,10 +6,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [logged, setLogged] = useState(false);
   const [token, setToken] = useState(null);
-  const [role, setRole] = useState(null); // Guardamos el rol
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
-    // Al recargar, recuperamos la sesión
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('usuario');
     const storedRole = localStorage.getItem('role');
@@ -21,6 +20,7 @@ export function AuthProvider({ children }) {
       setLogged(true);
     }
   }, []);
+
 
   async function register(email, password, roleInput) {
     try {
@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', data.email);
-        localStorage.setItem('role', data.role);
+        localStorage.setItem('role', data.role); 
         setToken(data.token);
         setUser(data.email);
         setRole(data.role);
